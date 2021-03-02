@@ -21,9 +21,9 @@
   <div>Twilight</div>
 </div>
 
-<button style="margin-top: 10px">Toggle Key</button>
+<button style="margin-top: 10px" (click)="toggleKey()">Toggle Key</button>
 
-<div class="keygrid">
+<div class="keygrid" [style]="handleDisplay()">
   <div class="blue">o</div>
   <div class="neutral"></div>
   <div class="red">o</div>
