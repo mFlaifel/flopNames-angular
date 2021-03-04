@@ -1,10 +1,11 @@
 <h1>Flop Names</h1>
 <h2></h2>
 <div style="margin-bottom: 30px; margin-top: 30px">
-  <button>Red</button>
-  <button>Blue</button>
+  <button (click)="changeTeam('Red')">Red</button>
+  <button (click)="changeTeam('Blue')">Blue</button>
   <br />
-  Current Team: Blue
+  Current Team:
+  <span class="{{ teamTextClass }}"> {{ currentTeam }}</span>
 </div>
 
 <div class="gamegrid">
