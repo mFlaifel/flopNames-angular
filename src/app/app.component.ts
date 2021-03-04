@@ -7,22 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   constructor() {}
+
   title = 'flop-names';
-  currentTeam = 'Red';
+  currentTeam = 'red';
   teamTextClass = 'redtext';
-
-  tileClass00: string = '';
-  tileClass01: string = '';
-  tileClass02: string = '';
-  tileClass10: string = '';
-  tileClass11: string = '';
-  tileClass12: string = '';
-  tileClass20: string = '';
-  tileClass21: string = '';
-  tileClass22: string = '';
-
-  ngOnInit() {}
-
+  winningMessage = '';
   keyDisplay = false;
 
   toggleKey() {
@@ -39,7 +28,6 @@ export class AppComponent {
 
   changeTeam(name: string) {
     this.currentTeam = name;
-
     if (name === 'Red') {
       this.teamTextClass = 'redtext';
     } else {
@@ -47,11 +35,7 @@ export class AppComponent {
     }
   }
 
-  setTile(x: number, y: number) {
-    console.log(x, y);
-    let xPosition = x.toString();
-    let yPosition = y.toString();
-    // @ts-ignore: Unreachable code error
-    this['tileClass' + xPosition + yPosition] = 'red';
+  displayWinner(winner: string) {
+    this.winningMessage = winner + ' won!';
   }
 }

@@ -1,26 +1,17 @@
 <h1>Flop Names</h1>
-<h2></h2>
+<h2>{{ winningMessage }}</h2>
 <div style="margin-bottom: 30px; margin-top: 30px">
-  <button (click)="changeTeam('Red')">Red</button>
-  <button (click)="changeTeam('Blue')">Blue</button>
+  <button (click)="changeTeam('red')">Red</button>
+  <button (click)="changeTeam('blue')">Blue</button>
   <br />
   Current Team:
   <span class="{{ teamTextClass }}"> {{ currentTeam }}</span>
 </div>
 
-<div class="gamegrid">
-  <div (click)="setTile(0, 0)" class="{{ tileClass00 }}">Battlefield Earth</div>
-  <div (click)="setTile(0, 1)" class="{{ tileClass01 }}">Howard the Duck</div>
-  <div (click)="setTile(0, 2)" class="{{ tileClass02 }}">Batman and Robin</div>
-
-  <div (click)="setTile(1, 0)" class="{{ tileClass10 }}">Cat woman</div>
-  <div (click)="setTile(1, 1)" class="{{ tileClass11 }}">Jack and Jill</div>
-  <div (click)="setTile(1, 2)" class="{{ tileClass12 }}">Cats</div>
-
-  <div (click)="setTile(2, 0)" class="{{ tileClass20 }}">Wing Commander</div>
-  <div (click)="setTile(2, 1)" class="{{ tileClass21 }}">Dudley Do-Right</div>
-  <div (click)="setTile(2, 2)" class="{{ tileClass22 }}">Twilight</div>
-</div>
+<app-game-grid
+  [currentTeam]="currentTeam"
+  (teamWon)="displayWinner($event)"
+></app-game-grid>
 
 <button style="margin-top: 10px" (click)="toggleKey()">Toggle Key</button>
 
@@ -37,4 +28,3 @@
   <div class="neutral"></div>
   <div class="red">o</div>
 </div>
-<router-outlet></router-outlet>
