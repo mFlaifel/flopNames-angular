@@ -16,7 +16,7 @@ export class AppComponent {
   }
 
   handleDisplay() {
-    if (this.keyDisplay) {
+    if (!this.keyDisplay) {
       return 'visibility:hidden';
     } else {
       return '';
