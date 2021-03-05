@@ -1,5 +1,5 @@
 import { GameService } from './../game.service';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-game-grid',
@@ -7,11 +7,8 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   styles: [],
 })
 export class GameGridComponent implements OnInit {
-  constructor(private gameService: GameService) {
-    this.currentTeam = 'red';
-  }
+  constructor(private gameService: GameService) {}
 
-  @Input() currentTeam;
   @Output() teamWon = new EventEmitter();
 
   tileClass00 = '';
@@ -27,12 +24,11 @@ export class GameGridComponent implements OnInit {
   ngOnInit(): void {}
 
   setTile(x: number, y: number) {
-    // @ts-ignore: Unreachable code error
     const className = this.gameService.gridKey[x][y];
     // @ts-ignore: Unreachable code error
     this['tileClass' + x + y] = className;
     this.gameService.countTile(className);
-    if (this.gameService.checkForWinner(className, this.currentTeam)) {
+    if (this.gameService.checkForWinner(className)) {
       this.teamWon.emit(this.gameService.winner);
     }
   }

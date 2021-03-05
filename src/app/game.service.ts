@@ -1,3 +1,4 @@
+import { Team } from './models/Team';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,9 +6,13 @@ import { Injectable } from '@angular/core';
 })
 export class GameService {
   constructor() {}
+  redTeam: Team = { displayName: 'Red' };
+  blueTeam: Team = { displayName: 'Blue' };
+  currentTeam: Team = this.redTeam;
   blueTileSelected = 0;
   redTileSelected = 0;
-  winner: string = '';
+  winner: Team = new Team();
+  gameOver = false;
 
   gridKey = [
     ['blue', 'neutral', 'red'],
@@ -23,22 +28,23 @@ export class GameService {
     }
   }
 
-  checkForWinner(tileCategory: string, currentTeam: string) {
+  checkForWinner(tileCategory: string) {
     if (this.blueTileSelected === 2) {
-      this.winner = 'blue';
+      this.setWinner(this.blueTeam);
     } else if (this.redTileSelected === 2) {
-      this.winner = 'red';
+      this.setWinner(this.redTeam);
     } else if (tileCategory === 'assassin') {
-      if (currentTeam === 'red') {
-        this.winner = 'blue';
+      if (this.currentTeam === this.redTeam) {
+        this.setWinner(this.blueTeam);
       } else {
-        this.winner = 'red';
+        this.setWinner(this.redTeam);
       }
     }
-    if (this.winner !== '') {
-      return true;
-    } else {
-      return false;
-    }
+    return this.gameOver;
+  }
+
+  setWinner(winningTeam: Team) {
+    this.winner = winningTeam;
+    this.gameOver = true;
   }
 }

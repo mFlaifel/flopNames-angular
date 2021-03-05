@@ -1,4 +1,7 @@
+import { Team } from './models/Team';
+import { GameService } from './game.service';
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'fn-app',
@@ -6,36 +9,33 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor() {}
-
-  title = 'flop-names';
-  currentTeam = 'red';
-  teamTextClass = 'redtext';
-  winningMessage = '';
-  keyDisplay = false;
-
-  toggleKey() {
-    this.keyDisplay = !this.keyDisplay;
+  constructor(private titleService: Title, public gameService: GameService) {
+    this.titleService.setTitle('flopNames');
   }
 
-  handleDisplay() {
-    if (!this.keyDisplay) {
-      return 'visibility:hidden';
+  title = 'flop-names';
+  winningMessage = '';
+  keyVisibility = false;
+
+  toggleKey() {
+    this.keyVisibility = !this.keyVisibility;
+  }
+
+  handleVisibility() {
+    if (!this.keyVisibility) {
+      return 'hidden';
     } else {
-      return '';
+      return 'visible';
     }
   }
 
   changeTeam(name: string) {
-    this.currentTeam = name;
-    if (name === 'Red') {
-      this.teamTextClass = 'redtext';
-    } else {
-      this.teamTextClass = 'bluetext';
-    }
+    // @ts-ignore: Unreachable code error
+    this.gameService.currentTeam = this.gameService[name + 'Team'];
   }
 
-  displayWinner(winner: string) {
-    this.winningMessage = winner + ' won!';
+  displayWinner(winner: Team) {
+    this.winningMessage = winner.displayName + ' won!';
+    this.titleService.setTitle('flopNames - ' + winner.displayName + ' won!');
   }
 }
